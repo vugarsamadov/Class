@@ -27,7 +27,6 @@ namespace October18Practice
             string command;
             int input;
             int[] array = new int[0];
-            int counter = 0;
             bool commandCheck = false;
             do
             {
@@ -38,10 +37,8 @@ namespace October18Practice
                     break;
                 
                 Array.Resize(ref array, array.Length+1);
-                
-                input = Convert.ToInt32(PromptAndGetString("Enter a number: "));
-                
-                array[counter++] = input;
+
+                array[array.Length-1] = PromptAndGetInt("Enter a number: "); ;
                 
             } while (commandCheck);
 
@@ -53,6 +50,11 @@ namespace October18Practice
         {
             Console.Write(prompt);
             return Console.ReadLine();
+        }
+        static int PromptAndGetInt(string prompt)
+        {
+            Console.Write(prompt);
+            return Convert.ToInt32(Console.ReadLine());
         }
 
         static void PrintArray(int[] array)
