@@ -12,6 +12,8 @@ namespace October20
                 new string[] { "JS", "JS", "JS" },34444);
            
             frontEndDeveloper.WriteCode();
+            
+            Console.WriteLine();
 
             BackEndDeveloper backEndDeveloper = new BackEndDeveloper("Vugar", "Samadov", 0, 0,
                 new string[] { "Clojure", "Lisp", "C#" }, 34444);

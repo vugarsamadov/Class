@@ -16,5 +16,11 @@ namespace October20.Models
             Experience = experience;
             Salary = salary;
         }
+        public Employee(string Name, string Surname,byte experience, int salary,byte Age)
+            :base(Name, Surname, Age)
+        {
+            Experience = experience;
+            Salary = salary;
+        }
     }
 }

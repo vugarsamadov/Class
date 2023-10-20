@@ -13,6 +13,11 @@ namespace October20.Models
         {
             KnownLanguages = knownLanguages;
         }
+        public Developer(string Name, string Surname, byte Experience, int Salary,byte Age, string[] knownLanguages)
+            : base(Name,Surname, Experience, Salary, Age)
+        {
+            KnownLanguages = knownLanguages;
+        }
 
         public void WriteCode()
         {
