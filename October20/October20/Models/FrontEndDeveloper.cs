@@ -11,6 +11,7 @@ namespace October20.Models
             : base(Name, Surname, Experience, Salary, knownLanguages)
         {
             this.CodeLineCount = CodeLineCount;
+
         }
 
     }

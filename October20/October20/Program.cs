@@ -16,7 +16,7 @@ namespace October20
             Console.WriteLine();
 
             BackEndDeveloper backEndDeveloper = new BackEndDeveloper("Vugar", "Samadov", 0, 0,
-                new string[] { "Clojure", "Lisp", "C#" }, 34444);
+                new string[] { "Clojure", "Lisp", "C#" }, 67458);
             
             backEndDeveloper.WriteCode();
         }
