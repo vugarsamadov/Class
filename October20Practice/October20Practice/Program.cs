@@ -30,6 +30,7 @@ namespace October20Practice
 
             Console.WriteLine(IndexOf("Vugar", 'u'));
             Console.WriteLine(IndexOf("Vugar", "ug"));
+            Console.WriteLine(LastIndexOf("Vugar", "ug"));
         }
 
         static int IndexOf(string target,char searchTerm)
@@ -64,6 +65,32 @@ namespace October20Practice
                 if (matchCount == searchTerm.Length)
                 {
                     return i-searchTerm.Length+1;
+                }
+            }
+            return -1;
+        }
+        static int LastIndexOf(string target,string searchTerm)
+        {
+            int matchCount = 0;
+            int j = 0;
+            for(int i = 0;i < target.Length; i++)
+            {
+                if(j < searchTerm.Length)
+                {
+                    if (target[i] == searchTerm[j])
+                    {
+                        j += 1;
+                        matchCount++;                        
+                    }
+                    else 
+                    {
+                        matchCount = 0;
+                        j = 0;
+                    }
+                }
+                if (matchCount == searchTerm.Length)
+                {
+                    return i;
                 }
             }
             return -1;
