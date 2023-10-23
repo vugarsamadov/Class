@@ -13,24 +13,26 @@ namespace October23Practice.Models
 
         private string _surname;
         private DateTime _birthday;
+        private string _phoneNumber;
+
+        public string PhoneNumber 
+        {
+            get => _phoneNumber;
+            set => _phoneNumber = IsValidPhoneNumber(value) ? value : _phoneNumber;
+        }
 
         public string Name 
         {
             get => _name;
-            set
-            {
-                _name = IsValidName(value) ? value : null!;
-            }
+            set => _name = IsValidName(value) ? value : _name;
         }
 
         public int Age 
         {
             get => _age;
-            set
-            {
-                _age = IsValidAge(value) ? value : 0;
-            }
+            set => _age = IsValidAge(value) ? value : _age;
         }
+        
 
         public int GetAge() => _age;
         public string GetName() => _name;
@@ -43,8 +45,6 @@ namespace October23Practice.Models
         {
             _name = IsValidName(Name) ? Name : null!;
         }
-
-
 
 
         private bool IsValidName(string name)
@@ -65,7 +65,14 @@ namespace October23Practice.Models
             }
             return true;
         }
-
+        
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            bool check = phoneNumber.Length == 13 && phoneNumber.StartsWith("+994");
+            if(!check)
+                Console.WriteLine("Phone Number invalid!");
+            return check;
+        }
 
     }
 }
