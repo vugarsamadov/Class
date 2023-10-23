@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace October23Practice.Models
@@ -10,17 +11,18 @@ namespace October23Practice.Models
     {
         private string _name;
         private int _age;
+        private string _phoneNumber;
 
         private string _surname;
         private DateTime _birthday;
-        private string _phoneNumber;
+
 
         public string PhoneNumber 
         {
             get => _phoneNumber;
-            set => _phoneNumber = IsValidPhoneNumber(value) ? value : _phoneNumber;
+            set => _phoneNumber = IsValidPhoneNumber(value.Trim()) ? value.Trim() : _phoneNumber;
         }
-
+        
         public string Name 
         {
             get => _name;
@@ -32,7 +34,6 @@ namespace October23Practice.Models
             get => _age;
             set => _age = IsValidAge(value) ? value : _age;
         }
-        
 
         public int GetAge() => _age;
         public string GetName() => _name;
