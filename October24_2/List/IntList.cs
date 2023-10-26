@@ -13,7 +13,9 @@
         public void Add(int[] numbers)
         {
             int OldArrayLength = array.Length;
+
             Array.Resize(ref array, OldArrayLength + numbers.Length);
+
             // 1 2
             // 3 4
             for (int i = array.Length-1; i < array.Length; i++) 

@@ -8,7 +8,8 @@ namespace October24
         static void Main(string[] args)
         {
             Company company = new Company(" E™ ");
-
+            
+            //Test employees
             Employee e1 = new Employee("Vugar", "Samadov", 20);
             Employee e2 = new Employee("Andrew", "Tate", 5);
             Employee e3 = new Employee("Bill", "Clinton", 68);
@@ -16,12 +17,6 @@ namespace October24
             company.AddEmployee(e1);
             company.AddEmployee(e2);
             company.AddEmployee(e3);
-
-            //foreach (Employee e in company.Employees) 
-            //{
-            //    Console.WriteLine(e);
-            //}
-
 
             int command;
             do
@@ -32,6 +27,7 @@ namespace October24
                 switch (command)
                 {
                     case 1:
+                        /* Burani basa dusmedim company coxlu yaratmaq olsun? */
                         break;
                     case 2:
                         var employee = Helper.GetEmployeeFromUser();
@@ -62,11 +58,7 @@ namespace October24
                 }
                 Console.WriteLine();
 
-
             } while (command < 7);
-
         }
-
-
     }
 }
