@@ -103,7 +103,6 @@ namespace October24.Models.Helpers
                 Console.WriteLine(employee);
             }
         }
-
         public static void RemoveEmployeeFromDatabase(int itemIndx,ref Employee[] Database)
         {
             var UpdatedDataBase = new Employee[Database.Length-1];
