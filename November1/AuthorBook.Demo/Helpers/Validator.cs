@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace AuthorBook.Demo.Helpers
 {
-    internal class Validator
+    public static class Validator
     {
+
+        public static bool ValidateUserName(string userName)
+        {
+            return userName.Length > 4;
+        }
+        public static bool ValidatePassword(string password) 
+        {
+            return password.Length > 6;
+        }
     }
 }
