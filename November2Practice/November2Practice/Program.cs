@@ -71,12 +71,15 @@ do
 
 
 
+
 var assembly = Assembly.GetExecutingAssembly();
 var instance = assembly.CreateInstance("November2Practice.ReflectionModels.UseR");
 
 instance.GetType()
     .GetField("_id", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static)
     .SetValue(instance, 51);
+
+
 instance.GetType()
     .GetField("_name", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static)
     .SetValue(instance, "Clinton");
