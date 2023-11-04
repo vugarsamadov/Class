@@ -70,7 +70,7 @@ do
 
 
 
-
+Convert.ToInt16
 
 var assembly = Assembly.GetExecutingAssembly();
 var instance = assembly.CreateInstance("November2Practice.ReflectionModels.UseR");
