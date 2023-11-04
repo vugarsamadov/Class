@@ -43,6 +43,7 @@ namespace November4Practice
                 InitialCommand.RemoveEmployee,
                 InitialCommand.Quit
             };
+
 public EmployeeUpdateCommand[] UpdateCommands { get; init; } = 
             new EmployeeUpdateCommand[] {
                 EmployeeUpdateCommand.Edit_Name,
@@ -94,11 +95,6 @@ public EmployeeUpdateCommand[] UpdateCommands { get; init; } =
                 }
 
             } while (Command != InitialCommand.Quit);
-
-
-
-
-
         }
 
         private void UpdateEmployee(int id)
