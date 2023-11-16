@@ -1,0 +1,72 @@
+CREATE TABLE employees
+(
+	EMPLOYEE_ID int PRIMARY KEY,
+  	FIRST_NAME nvarchar(20),
+  	LAST_NAME nvarchar(25),
+  	EMAIL nvarchar(25),
+  	PHONE_NUMBER nvarchar(20),
+  	HIRE_DATE date,
+  	JOB_ID nvarchar(20),
+  	SALARY int,
+  	COMMISION_PCT INT,
+  	MANAGER_ID int,
+  	DEPARTMENT_ID int
+)
+
+CREATE TABLE regions
+(
+	REGION_ID int PRIMARY KEY,
+  	REGION_NAME nvarchar(25)
+)
+
+CREATE TABLE departments
+(
+	DEPARTMENT_ID int,
+  	DEPARTMENT_NAME nvarchar(30),
+  	MANAGER_ID int,
+  	LOCATION_ID int
+)
+
+CREATE TABLE job_history
+(
+	EMPLOYEE_ID int PRIMARY KEY,
+  	START_DATE date ,
+  	END_DATE date,
+  	JOB_ID nvarchar(10),
+  	DEPARTMENT_ID int 
+)
+
+CREATE TABLE countries
+(
+	COUNTRY_ID char(2),
+  	COUNTRY_NAME varchar(40),
+  	REGION_ID int
+)
+
+CREATE TABLE locations
+(
+	LOCATION_ID INT,
+  	STREET_ADDRESS NVARCHAR(25),
+  	POSTAL_CODE NVARCHAR(12),
+  	CITY NVARCHAR(30),
+  	STATE_PROVINCE NVARCHAR(12),
+  	COUNTRY_ID CHAR(2)
+)
+
+
+CREATE TABLE jobs
+(
+	JOB_ID NVARCHAR(10),
+  	JOB_TITLE NVARCHAR(35),
+  	MIN_SALARY INT,
+  	MAX_SALARY INT
+)
+
+CREATE TABLE job_grades
+(
+	GRADE_LEVEL NVARCHAR(21),
+  	LOWEST_SAL INT,
+  	HIGHEST_SAL INT
+
+)
+
