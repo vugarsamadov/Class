@@ -1,0 +1,42 @@
+CREATE TABLE Brand
+(
+	Id int,
+  	Name nvarchar(34)
+);
+
+CREATE TABLE Owner
+(
+	Id int identity PRIMARY KEY,
+  	Name nvarchar(33),
+  	Surname nvarchar(33),
+);
+
+CREATE TABLE Model
+(
+	Id int identity PRIMARY KEY,
+  	Name nvarchar(34),
+  	BrandId int
+);
+
+CREATE TABLE Car
+(
+	Id int identity PRIMARY KEY,
+  	SerialNumber char(9),
+  	OwnerId int REFERENCES Owner(Id),
+  	ModelId int REFERENCES Model(Id)
+);
+
+CREATE TABLE Color
+(
+	Id int identity PRIMARY KEY,
+  	Name nvarchar(34)
+);
+
+CREATE TABLE ModelColor
+(
+	Id int identity PRIMARY KEY,
+  	ColorId int REFERENCES Color(Id),
+  	ModelId int REFERENCES Model(Id)
+);
+
+

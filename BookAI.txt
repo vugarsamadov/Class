@@ -1,0 +1,125 @@
+CREATE TABLE author
+(
+	Id int identity PRIMARY KEY,
+	Name nvarchar(60),
+	Age int,
+	CHECK(Age>0)
+);
+
+CREATE TABLE book
+(
+	Id int identity PRIMARY KEY,
+  	Name nvarchar(100)
+);
+
+CREATE TABLE genre
+(
+	Id int identity PRIMARY KEY,
+  	Name nvarchar(50)
+);
+
+CREATE TABLE AuthorBook
+(
+	Id int identity PRIMARY KEY,
+  	BookId int REFERENCES book(Id),
+  	AuthorId int REFERENCES author(Id)
+);
+
+CREATE table BookGenre
+(
+	Id int identity PRIMARY KEY,
+  	BookId int REFERENCES book(Id),
+  	GenreId int REFERENCES genre(Id)
+);
+
+INSERT INTO author VALUES ('J.K. Rowling', 20);
+INSERT INTO author VALUES ('George R.R. Martin', 45);
+INSERT INTO author VALUES ('Stephen King', 6);
+INSERT INTO author VALUES ('Agatha Christie', 25);
+INSERT INTO author VALUES ('Isaac Asimov', 32);
+INSERT INTO author VALUES ('Neil Gaiman', 30);
+INSERT INTO author VALUES ('Toni Morrison', 29);
+
+INSERT INTO book VALUES ('Harry Potter and the Philosopher''s Stone');
+INSERT INTO book VALUES ('A Game of Thrones');
+INSERT INTO book VALUES ('The Shining');
+INSERT INTO book VALUES ('Murder on the Orient Express');
+INSERT INTO book VALUES ('Foundation');
+INSERT INTO book VALUES ('American Gods');
+INSERT INTO book VALUES ('Beloved');
+INSERT INTO book VALUES ('The Catcher in the Rye');
+
+INSERT INTO genre VALUES ('Thriller');
+INSERT INTO genre VALUES ('Fantasy');
+INSERT INTO genre VALUES ('Drama');
+INSERT INTO genre VALUES ('Science Fiction');
+INSERT INTO genre VALUES ('Literary Fiction');
+
+INSERT INTO BookGenre VALUES (1, 1); 
+INSERT INTO BookGenre VALUES (2, 1);
+INSERT INTO BookGenre VALUES (3, 2);
+INSERT INTO BookGenre VALUES (4, 3); 
+INSERT INTO BookGenre VALUES (5, 4);
+INSERT INTO BookGenre VALUES (6, 1);
+INSERT INTO BookGenre VALUES (6, 4); 
+INSERT INTO BookGenre VALUES (7, 5); 
+INSERT INTO BookGenre VALUES (8, 5); 
+INSERT INTO BookGenre VALUES (8, 3); 
+
+
+INSERT INTO AuthorBook VALUES (1, 1); 
+INSERT INTO AuthorBook VALUES (2, 2);
+INSERT INTO AuthorBook VALUES (3, 3);
+INSERT INTO AuthorBook VALUES (4, 4); 
+INSERT INTO AuthorBook VALUES (5, 5); 
+INSERT INTO AuthorBook VALUES (6, 6);
+INSERT INTO AuthorBook VALUES (7, 7); 
+
+
+SELECT * FROM book;
+SELECT * FROM author;
+SELECT * FROM AuthorBook;
+
+-- 1
+
+SELECT A.Name, B.name FROM Author AS A
+LEFT JOIN AuthorBook AS AB ON A.id = AB.AuthorId
+LEFT JOIN Book B ON B.id = AB.BookId
+WHERE A.id = 1;
+
+-- 2 
+
+SELECT A.Name, B.Name 
+FROM author A left join AuthorBook AB ON A.id = AB.authorid 
+LEFT JOIN book B ON AB.bookid = B.id
+WHERE A.age BETWEEN 20 AND 30;
+
+-- 3
+
+SELECT B.Name, G.Name 
+FROM book b left join BookGenre bg on b.id = bg.BookId
+left join genre g on g.id = bg.genreid
+WHERE g.Name = 'Thriller'
+
+-- 4
+
+SELECT B.Name, G.Name 
+FROM book b left join BookGenre bg on b.id = bg.BookId
+left join genre g on g.id = bg.genreid
+WHERE g.Name IN ('Thriller','Fantasy','Drama')
+
+-- 5
+
+SELECT A.Name, B.Name 
+from author A left join AuthorBook ab ON A.Id = ab.authorid
+left join book b on b.Id = ab.BookId
+where B.name like '%ab%';
+
+
+
+
+
+
+
+
+
