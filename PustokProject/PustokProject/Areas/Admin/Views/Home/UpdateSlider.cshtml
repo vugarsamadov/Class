@@ -1,0 +1,43 @@
+﻿@using PustokProject.ViewModels;
+@model VM_UpdateSlider
+
+<div class="card-body align-items-center ">
+
+
+    <label for="inputId" class="form-label">Id</label>
+    <input type="text" id="inputId" class="form-control"  value="@Model.Id">
+
+    <label for="inputTitle" class="form-label">Title</label>
+    <input type="text" id="inputTitle" class="form-control" value="@Model.Title">
+
+    <label for="inputDesc" class="form-label">Description</label>
+    <input type="text" id="inputDesc" class="form-control" value="@Model.Description">
+
+    <label for="inputBtnText" class="form-label">Button Text</label>
+    <input type="text" id="inputBtnText" class="form-control" value="@Model.ButtonText">
+
+    <div class="radio-container p-5">
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Middle
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+            <label class="form-check-label" for="flexRadioDefault2">
+                Left
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
+            <label class="form-check-label" for="flexRadioDefault3">
+                Right
+            </label>
+        </div>
+
+    </div>
+    <button class="btn btn-warning">Submit</button>
+
+</div>
