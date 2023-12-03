@@ -25,7 +25,7 @@ namespace PustokProject.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            throw new NotImplementedException("s");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

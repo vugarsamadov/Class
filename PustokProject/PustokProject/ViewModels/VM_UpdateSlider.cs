@@ -20,7 +20,7 @@ namespace PustokProject.ViewModels
         public string ButtonText { get; set; }
 
         [Required]
-        public HeroAreaTextPosition TextPosition { get; set; }
+        public int TextPosition { get; set; }
 
         [Required]
         public string ThumpnailUrl { get; set; }
