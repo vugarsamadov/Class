@@ -19,7 +19,6 @@ namespace PustokProject.Areas.Home.Controllers
             _context = context;
         }
 
-
         public async Task<IActionResult> Index()
         {
             var vm = new VM_SlidersIndex();
