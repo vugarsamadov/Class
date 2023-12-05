@@ -82,18 +82,30 @@ namespace PustokProject.Areas.Home.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index)); 
         }
-        
-        [HttpGet("{id:int}")]
+    
         public async Task<IActionResult> DeleteSlider(int id)
         {
             var slider = await _context.Sliders.FindAsync(id);
             if (slider != null)
             {
-                _context.Remove(slider);
+                slider.Delete();
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
         }
+        
+        public async Task<IActionResult> RevokeDelete(int id)
+        {
+            var slider = await _context.Sliders.FindAsync(id);
+            if (slider != null)
+            {
+                slider.RevokeDelete();
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        
         
         
     }

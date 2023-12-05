@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using PustokProject.CoreModels;
 using PustokProject.Persistance;
 using PustokProject.ViewModels;
@@ -8,9 +7,9 @@ using PustokProject.ViewModels;
 namespace PustokProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class BooksController : Controller
+    public class AuthorsController : Controller
     {
-        public BooksController(ApplicationDbContext context)
+        public AuthorsController(ApplicationDbContext context)
         {
             Context = context;
         }
@@ -20,19 +19,19 @@ namespace PustokProject.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var model = new VM_BooksIndex();
-            model.Books = await Context.Books.Include(b => b.Brand)
-                .Include(b=>b.Category)
+            model.Books = await Context.Authors.Include(b => b.Brand)
+                .Include(b => b.Category)
                 .ToListAsync();
             return View(model);
         }
 
-        public async Task<IActionResult> CreateBook()
+        public async Task<IActionResult> CreateAuthor()
         {
-            var brands= await Context.Brands.ToListAsync();
-            var categories= await Context.Categories.Where(c =>c.ParentId != null).ToListAsync();
-            ViewBag.Brands = new SelectList(brands,"Id","Name","SelectBrand");
-            ViewBag.Categories = new SelectList(categories,"Id","Name","SelectCategory");
-            
+            var brands = await Context.Authors.ToListAsync();
+            var categories = await Context.Categories.Where(c => c.ParentId != null).ToListAsync();
+            ViewBag.Brands = new SelectList(brands, "Id", "Name", "SelectBrand");
+            ViewBag.Categories = new SelectList(categories, "Id", "Name", "SelectCategory");
+
             var model = new VM_CreateBook();
 
             return View(model);
@@ -41,10 +40,10 @@ namespace PustokProject.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBook(VM_CreateBook model)
         {
-            var brands= await Context.Brands.ToListAsync();
-            ViewBag.Brands = new SelectList(brands,"Id","Name","SelectBrand");
-            var categories= await Context.Categories.Where(c =>c.ParentId != null).ToListAsync();
-            ViewBag.Categories = new SelectList(categories,"Id","Name","SelectCategory");
+            var brands = await Context.Brands.ToListAsync();
+            ViewBag.Brands = new SelectList(brands, "Id", "Name", "SelectBrand");
+            var categories = await Context.Categories.Where(c => c.ParentId != null).ToListAsync();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name", "SelectCategory");
 
             if (!ModelState.IsValid)
             {
@@ -56,7 +55,7 @@ namespace PustokProject.Areas.Admin.Controllers
             book.Price = model.Price;
             book.BrandId = model.BrandId;
             book.CategoryId = model.CategoryId;
-            
+
             book.DiscountPercentage = model.DiscountPercentage;
             book.IsAvailable = model.IsAvailable == "true";
             book.ProductCode = model.ProductCode;
@@ -68,17 +67,17 @@ namespace PustokProject.Areas.Admin.Controllers
 
         public async Task<IActionResult> UpdateBook(int id)
         {
-            
-            var brands= await Context.Brands.ToListAsync();
-            ViewBag.Brands = new SelectList(brands,"Id","Name","SelectBrand");
-            var categories= await Context.Categories.Where(c =>c.ParentId != null).ToListAsync();
-            ViewBag.Categories = new SelectList(categories,"Id","Name","SelectCategory");
-            
+
+            var brands = await Context.Brands.ToListAsync();
+            ViewBag.Brands = new SelectList(brands, "Id", "Name", "SelectBrand");
+            var categories = await Context.Categories.Where(c => c.ParentId != null).ToListAsync();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name", "SelectCategory");
+
             var model = new VM_UpdateBook();
             var book = await Context.Books.FirstOrDefaultAsync(b => b.Id == id);
             if (book == null)
             {
-                ModelState.AddModelError("Book","Book Not found!");
+                ModelState.AddModelError("Book", "Book Not found!");
                 return View(model);
             }
             model.Name = book.Name;
@@ -93,12 +92,12 @@ namespace PustokProject.Areas.Admin.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateBook(int id,VM_UpdateBook model)
+        public async Task<IActionResult> UpdateBook(int id, VM_UpdateBook model)
         {
-            var brands= await Context.Brands.ToListAsync();
-            ViewBag.Brands = new SelectList(brands,"Id","Name","SelectBrand");
-            var categories= await Context.Categories.Where(c =>c.ParentId != null).ToListAsync();
-            ViewBag.Categories = new SelectList(categories,"Id","Name","SelectCategory");
+            var brands = await Context.Brands.ToListAsync();
+            ViewBag.Brands = new SelectList(brands, "Id", "Name", "SelectBrand");
+            var categories = await Context.Categories.Where(c => c.ParentId != null).ToListAsync();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name", "SelectCategory");
 
             if (!ModelState.IsValid)
             {
@@ -107,22 +106,22 @@ namespace PustokProject.Areas.Admin.Controllers
             var book = await Context.Books.FirstOrDefaultAsync(b => b.Id == id);
             if (book == null)
             {
-                ModelState.AddModelError("Book","Book Not found!");
+                ModelState.AddModelError("Book", "Book Not found!");
                 return View(model);
             }
-                            book.Name = model.Name;
-                            book.Description = model.Description;
-                            book.Price = model.Price;
-                            book.BrandId = model.BrandId;
-                            book.CategoryId = model.CategoryId;
-                            book.DiscountPercentage = model.DiscountPercentage;
-                            book.IsAvailable = model.IsAvailable ?? false;
-                            book.ProductCode = model.ProductCode;
-                            book.CoverImageUrl = model.CoverImageUrl;
-                            await Context.SaveChangesAsync();
+            book.Name = model.Name;
+            book.Description = model.Description;
+            book.Price = model.Price;
+            book.BrandId = model.BrandId;
+            book.CategoryId = model.CategoryId;
+            book.DiscountPercentage = model.DiscountPercentage;
+            book.IsAvailable = model.IsAvailable ?? false;
+            book.ProductCode = model.ProductCode;
+            book.CoverImageUrl = model.CoverImageUrl;
+            await Context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        
+
         public async Task<IActionResult> DeleteBook(int id)
         {
             var book = await Context.Books.FirstOrDefaultAsync(b => b.Id == id);
@@ -144,4 +143,5 @@ namespace PustokProject.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
+
 }

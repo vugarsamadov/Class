@@ -1,27 +1,28 @@
 ﻿using PustokProject.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace PustokProject.CoreModels
+namespace PustokProject.ViewModels
 {
-    public class Slider : BaseModel
+    public class VM_UpdateSlider
     {
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(30)]
-        public string Title{ get; set; }
-        
+        public string Title { get; set; }
+
         [Required]
         [MaxLength(40)]
-        public string Description{ get; set; }
-        
+        public string Description { get; set; }
+
         [Required]
         [MaxLength(40)]
-        public string ButtonText{ get; set; }
-        
+        public string ButtonText { get; set; }
+
         [Required]
-        public HeroAreaTextPosition TextPosition { get; set; }
-        
+        public int TextPosition { get; set; }
+
         [Required]
         public string ThumpnailUrl { get; set; }
-
     }
 }
