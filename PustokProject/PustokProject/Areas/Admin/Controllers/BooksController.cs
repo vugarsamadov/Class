@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
 using PustokProject.CoreModels;
 using PustokProject.Persistance;
-using PustokProject.ViewModels;
+using PustokProject.ViewModels.Books;
 
 namespace PustokProject.Areas.Admin.Controllers
 {
@@ -56,13 +57,18 @@ namespace PustokProject.Areas.Admin.Controllers
             book.Price = model.Price;
             book.BrandId = model.BrandId;
             book.CategoryId = model.CategoryId;
-            
             book.DiscountPercentage = model.DiscountPercentage;
             book.IsAvailable = model.IsAvailable == "true";
             book.ProductCode = model.ProductCode;
             book.CoverImageUrl = model.CoverImageUrl;
+
+            var imageName = await model.ImageFile.SaveToRootWithUniqueNameAsync();
+            book.CoverImageUrl = imageName;
+
             await Context.Books.AddAsync(book);
             await Context.SaveChangesAsync();
+
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -89,6 +95,7 @@ namespace PustokProject.Areas.Admin.Controllers
             model.DiscountPercentage = book.DiscountPercentage;
             model.IsAvailable = book.IsAvailable;
             model.ProductCode = book.ProductCode;
+
             model.CoverImageUrl = book.CoverImageUrl;
             return View(model);
         }
@@ -118,8 +125,12 @@ namespace PustokProject.Areas.Admin.Controllers
                             book.DiscountPercentage = model.DiscountPercentage;
                             book.IsAvailable = model.IsAvailable ?? false;
                             book.ProductCode = model.ProductCode;
-                            book.CoverImageUrl = model.CoverImageUrl;
-                            await Context.SaveChangesAsync();
+            if (model.ImageFile != null)
+            {
+                var imageName = await model.ImageFile.SaveToRootWithUniqueNameAsync();
+                book.CoverImageUrl = imageName;
+            }
+            await Context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         

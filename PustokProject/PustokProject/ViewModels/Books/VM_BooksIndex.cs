@@ -1,6 +1,6 @@
 ﻿using PustokProject.CoreModels;
 
-namespace PustokProject.ViewModels
+namespace PustokProject.ViewModels.Books
 {
     public class VM_BooksIndex
     {

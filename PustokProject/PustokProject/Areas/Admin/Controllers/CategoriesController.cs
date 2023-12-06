@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PustokProject.CoreModels;
 using PustokProject.Persistance;
-using PustokProject.ViewModels;
+using PustokProject.ViewModels.Categories;
 
 namespace PustokProject.Areas.Admin.Controllers;
 

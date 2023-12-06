@@ -2,7 +2,7 @@
 using PustokProject.CoreModels;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PustokProject.ViewModels
+namespace PustokProject.ViewModels.Books
 {
     public class VM_CreateBook
     {
@@ -18,13 +18,16 @@ namespace PustokProject.ViewModels
         public string ProductCode { get; set; }
         
         public string? IsAvailable { get; set; }
-        [Required]
-        public string CoverImageUrl { get; set; }
+
+        public string? CoverImageUrl { get; set; }
         [Required]
         [Range(0, 10000)]
         public decimal Price { get; set; }
         [Range(0, 100)]
         public decimal? DiscountPercentage { get; set; }
+
+        [Required]
+        public IFormFile  ImageFile{ get; set; }
 
     }
 }

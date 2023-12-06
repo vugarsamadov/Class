@@ -4,6 +4,7 @@ using PustokProject.CoreModels;
 using PustokProject.Enums;
 using PustokProject.Persistance;
 using PustokProject.ViewModels;
+using PustokProject.ViewModels.Sliders;
 
 namespace PustokProject.Areas.Home.Controllers
 {
@@ -18,7 +19,7 @@ namespace PustokProject.Areas.Home.Controllers
         {
             _context = context;
         }
-
+        
         public async Task<IActionResult> Index()
         {
             var vm = new VM_SlidersIndex();

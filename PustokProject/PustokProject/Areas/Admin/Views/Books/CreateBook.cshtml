@@ -1,10 +1,10 @@
-﻿@using PustokProject.ViewModels;
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper MVCWebAppExample.TagHelpers.*, MVCWebAppExample
+@using PustokProject.ViewModels.Books;
 @model VM_CreateBook
 
 
-<form class="flex card-body align-items-center" method="post" asp-action="CreateBook">
+<form class="flex card-body align-items-center" method="post" enctype="multipart/form-data" asp-action="CreateBook">
 
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
@@ -30,12 +30,12 @@
         <label asp-for="Price" class="form-label">Pricet</label>
         <input type="text" class="form-control" asp-for="Price">
     </div>
-
+@* 
     <div class="form-group">
         <span asp-validation-for="CoverImageUrl" class="text-danger"></span>
         <label asp-for="CoverImageUrl" class="form-label">CoverImageUrlUrl</label>
         <input type="text" class="form-control" asp-for="CoverImageUrl">
-    </div>
+    </div> *@
     
     <div class="form-group">
         <span asp-validation-for="ProductCode" class="text-danger"></span>
@@ -62,9 +62,26 @@
         @* </div> *@
     </div>
 
+
     <select class="form-control"  asp-for="BrandId" asp-items="ViewBag.Brands"></select>
     <select class="form-control"  asp-for="CategoryId" asp-items="ViewBag.Categories"></select>
-    
+    <input id="uploadimage" asp-for="ImageFile" type="file" accept="image/*"   />
+    <img id="img" width="300" height="300" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg" />
+
+    <script>
+
+        var btnFile = document.getElementById("uploadimage");
+        var image = document.getElementById("img");
+
+        btnFile.onchange = evt => {
+            const [file] = btnFile.files
+            if (file) {
+                image.src = URL.createObjectURL(file)
+            }
+        }
+
+    </script>
+
     <button type="submit" class="btn btn-warning">Submit</button>
 
 </form>
