@@ -1,6 +1,7 @@
 ﻿using Microsoft.Build.Evaluation;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.Mime;
 
 namespace PustokProject.CoreModels
 {
@@ -24,8 +25,19 @@ namespace PustokProject.CoreModels
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public IEnumerable<BookImage> Images { get; set; }
+        public List<BookImage> Images { get; set; } = new();
 
+        public void SetActiveImage(int imageId)
+        {
+            Images.ForEach(i=>i.DeActivate());
+            var image = Images.FirstOrDefault(i=>i.Id == imageId);
+            if (image != null)
+            {
+                image.Activate();
+                CoverImageUrl = image.ImagePath;
+            }
+        }
+        
         [NotMapped]
         public decimal? DiscountedPrice { get => DiscountPercentage != null ? Price * (1 - DiscountPercentage / 100) : null; }
 

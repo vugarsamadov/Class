@@ -32,9 +32,9 @@
                             <td>@slide.ButtonText</td>
                             <td>@slide.TextPosition</td>
                             <td>@slide.ThumpnailUrl</td>
-                            <td><a style="display:@(slide.IsDeleted ? "none" : string.Empty);) asp-area="Admin" asp-action="UpdateSlider" asp-route-id="@slide.Id" class="btn btn-warning">Edit</a></td>
-                            <td><a style="display:@(slide.IsDeleted ? "none" : string.Empty);) asp-area="Admin" asp-action="DeleteSlider" asp-route-id="@slide.Id" class="btn btn-danger">Delete</a></td>
-                            <td><a style="display:@(slide.IsDeleted ? string.Empty : "none" );) asp-area="Admin" asp-action="RevokeDelete" asp-route-id="@slide.Id" class="btn btn-primary">Revoke</a></td>
+                            <td><a style="display:@(slide.IsDeleted ? "none" : string.Empty);)" asp-area="Admin" asp-action="UpdateSlider" asp-route-id="@slide.Id" class="btn btn-warning">Edit</a></td>
+                            <td><a style="display:@(slide.IsDeleted ? "none" : string.Empty);)" asp-area="Admin" asp-action="DeleteSlider" asp-route-id="@slide.Id" class="btn btn-danger">Delete</a></td>
+                            <td><a style="display:@(slide.IsDeleted ? string.Empty : "none" );)" asp-area="Admin" asp-action="RevokeDelete" asp-route-id="@slide.Id" class="btn btn-primary">Revoke</a></td>
                             
                         </tr>
                     }

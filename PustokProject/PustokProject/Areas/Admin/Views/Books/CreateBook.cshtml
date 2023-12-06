@@ -20,17 +20,17 @@
     </div>
 
     <div class="form-group">
-            <span asp-validation-for="DiscountPercentage" class="text-danger"></span>
-            <label asp-for="DiscountPercentage" class="form-label">DiscountPercentage</label>
-            <input type="text" class="form-control" asp-for="DiscountPercentage">
-        </div>
+        <span asp-validation-for="DiscountPercentage" class="text-danger"></span>
+        <label asp-for="DiscountPercentage" class="form-label">DiscountPercentage</label>
+        <input type="text" class="form-control" asp-for="DiscountPercentage">
+    </div>
     
     <div class="form-group">
         <span asp-validation-for="Price" class="text-danger"></span>
         <label asp-for="Price" class="form-label">Pricet</label>
         <input type="text" class="form-control" asp-for="Price">
     </div>
-@* 
+    @* 
     <div class="form-group">
         <span asp-validation-for="CoverImageUrl" class="text-danger"></span>
         <label asp-for="CoverImageUrl" class="form-label">CoverImageUrlUrl</label>
@@ -62,14 +62,18 @@
         @* </div> *@
     </div>
 
-
+    <label asp-for="BrandId">Brand</label>
     <select class="form-control"  asp-for="BrandId" asp-items="ViewBag.Brands"></select>
+
+    <label asp-for="CategoryId">Category</label>
     <select class="form-control"  asp-for="CategoryId" asp-items="ViewBag.Categories"></select>
+
     <input id="uploadimage" asp-for="ImageFile" type="file" accept="image/*"   />
-    <img id="img" width="300" height="300" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg" />
+    <img id="img" width="300" height="300" src="https://subscription.tawseel.com/images/publications/NOT_AVAILABLE.png" />
 
+    <button type="submit" class="btn btn-warning">Submit</button>
+</form>
     <script>
-
         var btnFile = document.getElementById("uploadimage");
         var image = document.getElementById("img");
 
@@ -79,9 +83,4 @@
                 image.src = URL.createObjectURL(file)
             }
         }
-
     </script>
-
-    <button type="submit" class="btn btn-warning">Submit</button>
-
-</form>

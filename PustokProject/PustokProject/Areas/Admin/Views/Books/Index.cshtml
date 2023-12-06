@@ -22,7 +22,7 @@
                         <th>ProductCode</th>
                         <th>Brand</th>
                         <th>Category</th>
-                        <th colspan="2">Action</th>
+                        <th colspan="4">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,9 +40,10 @@
                             <td>@book.ProductCode</td>
                             <td>@book.Brand.Name</td>
                             <td>@book.Category.Name</td>
-                            <td><a style="display:@(book.IsDeleted ? "none" : string.Empty);) asp-area="Admin" asp-controller="Books" asp-action="UpdateBook" asp-route-id="@book.Id" class="btn btn-warning">Edit</a></td>
-                            <td><a style="display:@(book.IsDeleted ? "none" : string.Empty);) asp-area="Admin" asp-controller="Books" asp-action="DeleteBook" asp-route-id="@book.Id" class="btn btn-danger">Delete</a></td>
-                            <td><a style="display:@(book.IsDeleted ? string.Empty : "none" );) asp-area="Admin" asp-action="RevokeDelete" asp-route-id="@book.Id" class="btn btn-primary">Revoke</a></td>
+                            <td><a style="display:@(book.IsDeleted ? "none" : string.Empty);)" asp-area="Admin" asp-controller="Books" asp-action="UpdateBook" asp-route-id="@book.Id" class="btn btn-warning">Edit</a></td>
+                            <td><a style="display:@(book.IsDeleted ? "none" : string.Empty);)" asp-area="Admin" asp-controller="BookImages" asp-action="Index" asp-route-Id="@book.Id" class="btn btn-warning">Edit Images</a></td>
+                            <td><a style="display:@(book.IsDeleted ? "none" : string.Empty);)" asp-area="Admin" asp-controller="Books" asp-action="DeleteBook" asp-route-id="@book.Id" class="btn btn-danger">Delete</a></td>
+                            <td><a style="display:@(book.IsDeleted ? string.Empty : "none" );)" asp-area="Admin" asp-action="RevokeDelete" asp-route-id="@book.Id" class="btn btn-primary">Revoke</a></td>
                         </tr>
                     }
                 </tbody>
