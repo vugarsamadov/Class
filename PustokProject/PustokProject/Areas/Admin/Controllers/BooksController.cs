@@ -81,12 +81,15 @@ namespace PustokProject.Areas.Admin.Controllers
             ViewBag.Categories = new SelectList(categories,"Id","Name","SelectCategory");
             
             var model = new VM_UpdateBook();
+
             var book = await Context.Books.FirstOrDefaultAsync(b => b.Id == id);
+            
             if (book == null)
             {
                 ModelState.AddModelError("Book","Book Not found!");
                 return View(model);
             }
+
             model.Name = book.Name;
             model.Description = book.Description;
             model.Price = book.Price;
@@ -106,6 +109,8 @@ namespace PustokProject.Areas.Admin.Controllers
             ViewBag.Brands = new SelectList(brands,"Id","Name","SelectBrand");
             var categories= await Context.Categories.Where(c =>c.ParentId != null).ToListAsync();
             ViewBag.Categories = new SelectList(categories,"Id","Name","SelectCategory");
+
+            
 
             if (!ModelState.IsValid)
             {

@@ -14,6 +14,7 @@ namespace PustokProject.CoreModels
         public string Description { get; set; }
         public int AuthordId { get; set; }
         public Author Author { get; set; }
-
+        
+        public ICollection<Tag> Tags { get; set; }
     }
 }
