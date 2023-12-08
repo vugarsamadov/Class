@@ -128,6 +128,14 @@ namespace PustokProject.Areas.Admin.Controllers
             if (model.ImageFile != null)
             {
                 var imageName = await model.ImageFile.SaveToRootWithUniqueNameAsync();
+                
+                BookImage bi = new();
+                bi.BookId = id;
+                bi.ImagePath = imageName;
+                bi.Activate();
+                await Context.BookImages.AddAsync(bi);
+
+                await Context.SaveChangesAsync();
                 book.CoverImageUrl = imageName;
             }
             await Context.SaveChangesAsync();

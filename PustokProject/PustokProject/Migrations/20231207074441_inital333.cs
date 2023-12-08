@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PustokProject.Migrations
 {
-    public partial class initial44 : Migration
+    public partial class inital333 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

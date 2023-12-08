@@ -12,8 +12,8 @@ using PustokProject.Persistance;
 namespace PustokProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231206153043_initial44")]
-    partial class initial44
+    [Migration("20231207074441_inital333")]
+    partial class inital333
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

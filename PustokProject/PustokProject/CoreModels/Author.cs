@@ -16,3 +16,4 @@ namespace PustokProject.CoreModels
         public ICollection<Blog> Blogs { get; set; }
     }
 }
+    

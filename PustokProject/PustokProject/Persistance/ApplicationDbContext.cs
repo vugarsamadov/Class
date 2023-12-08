@@ -21,8 +21,8 @@ namespace PustokProject.Persistance
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder
-                //.UseSqlServer(@"Server=DESKTOP-MV8SC5T\SQLEXPRESS;Database=PracticePustok02;TrustServerCertificate=True;Encrypt=False;Trusted_Connection=True");
-                .UseSqlServer(@"Server=localhost;Database=Pustok;User Id=SA;Password=Vugar2003Vs$");
+                .UseSqlServer(@"Server=DESKTOP-MV8SC5T\SQLEXPRESS;Database=PracticePustok03;TrustServerCertificate=True;Encrypt=False;Trusted_Connection=True");
+                //.UseSqlServer(@"Server=localhost;Database=Pustok;User Id=SA;Password=Vugar2003Vs$");
         }
     }
 }
