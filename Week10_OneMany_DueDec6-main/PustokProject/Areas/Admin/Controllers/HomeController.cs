@@ -5,6 +5,7 @@ using PustokProject.Enums;
 using PustokProject.Persistance;
 using PustokProject.ViewModels;
 using PustokProject.ViewModels.Sliders;
+using System.Text.Json.Nodes;
 
 namespace PustokProject.Areas.Home.Controllers
 {
@@ -26,7 +27,7 @@ namespace PustokProject.Areas.Home.Controllers
             vm.PageTitle = "Admin index";
             var sliders = await _context.Sliders.ToListAsync();
             vm.Sliders = sliders;
-            return View(vm);
+            return View(vm);            
         }
         
         [HttpGet]

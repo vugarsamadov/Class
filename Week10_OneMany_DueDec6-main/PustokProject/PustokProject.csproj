@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Blogs\" />
     <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
