@@ -72,17 +72,26 @@
 * {
   margin: 0;
   padding: 0;
+  
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
+
+.discountedbookscontainer
+{
+    margin:0 15% 0 15%;
+    width: 70%;
+}
+
 body {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
-  color: #333;
-  font-size: 14px;
-  line-height: 1.75;
-  width: 100%;
-  background: #fff; }
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.75;
+    width: 100%;
+    background: #fff;
+}
 
 .site-wrapper {
   position: relative; }
