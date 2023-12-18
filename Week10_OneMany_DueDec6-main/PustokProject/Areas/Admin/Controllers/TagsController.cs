@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PustokProject.CoreModels;
 using PustokProject.Persistance;
+using PustokProject.ViewModels;
 using PustokProject.ViewModels.Tags;
 
 namespace PustokProject.Areas.Admin.Controllers
@@ -19,9 +20,55 @@ namespace PustokProject.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var model = new VM_TagsIndex();
-            model.Tags = await Context.Tags.ToListAsync();
-            return View(model);
+            var pagenumber = 1;
+            var take = 3;
+
+            var count = await Context.Tags
+                    .CountAsync();
+
+            var page = new VM_PaginatedEntityTable<Tag>();
+            page.Items = await Context.Tags.Skip((pagenumber - 1) * take)
+                .Take(take)
+                .ToListAsync();
+            page.PageCount = (int)Math.Ceiling((decimal)count / take);
+            page.HasPrev = pagenumber > 1;
+            page.HasNext = pagenumber < page.PageCount;
+            page.CurrentPage = pagenumber;
+
+            var routevaldic = new RouteValueDictionary();
+            routevaldic["pagenumber"] = pagenumber + 1;
+            routevaldic["take"] = take;
+
+            page.NextPage = Url.Action(nameof(PaginatedTags), routevaldic);
+            routevaldic["pagenumber"] = pagenumber - 1;
+            page.PreviousPage = Url.Action(nameof(PaginatedTags), routevaldic);
+
+            return View(page);
+        }
+
+        public async Task<IActionResult> PaginatedTags(int pagenumber, int take)
+        {
+            var count = await Context.Tags
+                        .CountAsync();
+
+            var page = new VM_PaginatedEntityTable<Tag>();
+            page.Items = await Context.Tags.Skip((pagenumber - 1) * take)
+                .Take(take)
+                .ToListAsync();
+            page.PageCount = (int)Math.Ceiling((decimal)count / take);
+            page.HasPrev = pagenumber > 1;
+            page.HasNext = pagenumber < page.PageCount;
+            page.CurrentPage = pagenumber;
+
+            var routevaldic = new RouteValueDictionary();
+            routevaldic["pagenumber"] = pagenumber + 1;
+            routevaldic["take"] = take;
+
+            page.NextPage = Url.Action(nameof(PaginatedTags), routevaldic);
+            routevaldic["pagenumber"] = pagenumber - 1;
+            page.PreviousPage = Url.Action(nameof(PaginatedTags), routevaldic);
+
+            return PartialView("_PaginatedColumnsTags",page);
         }
 
 

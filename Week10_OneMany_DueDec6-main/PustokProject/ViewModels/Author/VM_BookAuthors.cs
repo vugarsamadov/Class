@@ -9,8 +9,7 @@ namespace PustokProject.ViewModels.AuthorVMS
 
         public string Name { get; set; }
         public string Surname { get; set; }
-        
-        public ICollection<CoreModels.Author>? Authors { get; set; }
-        
+        public VM_PaginatedEntityTable<Author>? PaginatedModel { get; set; }
+
     }
 }

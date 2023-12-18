@@ -32,7 +32,7 @@ namespace PustokProject.Controllers
 
             var hasNext = (count >= 4);
 
-            model.PagedBookVM = new PagedBooksVm<IEnumerable<Book>>(hasNext, 0,4, BooksAbove20Perc);
+            model.PagedBookVM = new PagedBooksVm<IEnumerable<Book>>(hasNext, 0,8, BooksAbove20Perc);
 
 
            // model.BooksAbove20Perc = await dbContext.Books.Where(b=>!b.IsDeleted && b.DiscountPercentage > 20).ToListAsync();
@@ -47,15 +47,13 @@ namespace PustokProject.Controllers
 
         public async Task<IActionResult> BookPagination(int skip=0,int take = 4)
         {
-            skip += take;
-
 
             var BooksAbove20Perc = await dbContext.Books.Where(b => !b.IsDeleted && b.DiscountPercentage > 20).Skip(skip).Take(take).ToListAsync();
             var count = await dbContext.Books.Where(b => !b.IsDeleted && b.DiscountPercentage > 20).CountAsync();
 
             var hasNext = (count >= skip + take);
 
-            var model = new PagedBooksVm<IEnumerable<Book>>(hasNext,skip,take,BooksAbove20Perc);
+            var model = new PagedBooksVm<IEnumerable<Book>>(hasNext,0,take+4,BooksAbove20Perc);
 
 
             return PartialView("_BooksPagedViewPartial", model);

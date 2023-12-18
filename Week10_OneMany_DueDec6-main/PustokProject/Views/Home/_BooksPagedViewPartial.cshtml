@@ -2,9 +2,9 @@
 @using PustokProject.ViewModels.Books.Non_Admin;
 @model PagedBooksVm<IEnumerable<Book>>
 
-<div class="flex-column flex align-items-center">
+<div id="discountedbookscontainer"  class="flex-column flex align-items-center">
 
-<div class="discountedbookscontainer d-flex flex-wrap flex-row justify-content-center">
+    <div  class="discountedbookscontainer d-flex flex-wrap flex-row justify-content-center">
 @foreach (var book in Model.Items)
 {
         <div class="product-card px-5">
@@ -44,9 +44,6 @@
             </div>
         </div>
     }
+    </div>
 </div>
-    <a  id="loadmore" class="btn btn-primary" asp-action="BookPagination" asp-route-skip="4" asp-route-take="4" >Load More</a>
 
-
-
-</div>

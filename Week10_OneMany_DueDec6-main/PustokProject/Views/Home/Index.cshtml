@@ -1264,23 +1264,42 @@ Home Slider Tab
 Deal of the day
 ===================================== -->
 @section scripts
-        {
+{
     <script>
+        function increasePagination(url) {
+            // create a URL object from the url string
+            let urlObj = new URL("http://localhost:7058"+url);
+            // get the value of skip and take from the search parameters
+            let skip = parseInt(urlObj.searchParams.get('skip'));
+            let take = parseInt(urlObj.searchParams.get('take'));
+            skip = skip + take;
 
-        $("#loadmore").click(function (ev) {
-            ev.preventDefault();
-            console.log("AA");
-            let url =  $("#loadmore").attr("href");
-            console.log(url);
-            fetch(url)
-                .then(a => a.text())
-                .then(a => $("#con").html($("#con").html()+a))
-        })
+            url = "http://localhost:7058/Home/BookPagination?";
+            // append skip and take as query parameters
+            url += "skip=" + skip + "&take=" + take;
+            return url;
+        }
+        </script>
+
+    <script>
+        
+
+
+        $("#con").on("click",
+            "a", function (ev) {
+                ev.preventDefault();
+                console.log("AA");
+                let url = $("#loadmore").attr("href");
+                console.log(url);
+                fetch(url)
+                    .then(a => a.text())
+                    .then(a => $("#discountedbookscontainer").html($("#discountedbookscontainer").html() + a))
+                    .then(a => $("#loadmore").attr("href", increasePagination($("#loadmore").attr("href"))))
+            });
 
     </script>
 
-        }
-
+}
 
 <section class="section-margin">
     <div class="container-fluid">
@@ -1306,7 +1325,7 @@ Deal of the day
         </div>
         <div id="con">
             <partial name="_BooksPagedViewPartial" model="Model.PagedBookVM" />
-
+            <a id="loadmore" class="btn btn-primary" asp-action="BookPagination" asp-route-skip="4" asp-route-take="4">Load More</a>
         </div>
         
     </div>

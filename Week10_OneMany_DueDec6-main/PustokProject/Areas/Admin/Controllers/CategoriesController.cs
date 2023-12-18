@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PustokProject.CoreModels;
 using PustokProject.Persistance;
+using PustokProject.ViewModels;
 using PustokProject.ViewModels.Categories;
 
 namespace PustokProject.Areas.Admin.Controllers;
@@ -19,13 +21,65 @@ public class CategoriesController : Controller
     
     public async Task<IActionResult> Index()
     {
+        var pagenumber = 1;
+        var take = 3;
+
+        var count = await _context.Categories
+                .CountAsync();
+
         var categories = await _context.Categories
             .Include(c=>c.Parent)
-            .ToListAsync();
-        var model = new VM_CategoriesIndex();
-        model.Categories = categories;
-        return View(model);
+            .Skip((pagenumber - 1) * take)
+                .Take(take)
+                .ToListAsync();
+
+        var page = new VM_PaginatedEntityTable<Category>();
+        page.Items = categories;
+        page.PageCount = (int)Math.Ceiling((decimal)count / take);
+        page.HasPrev = pagenumber > 1;
+        page.HasNext = pagenumber < page.PageCount;
+        page.CurrentPage = pagenumber;
+
+        var routevaldic = new RouteValueDictionary();
+        routevaldic["pagenumber"] = pagenumber + 1;
+        routevaldic["take"] = take;
+
+        page.NextPage = Url.Action(nameof(PaginatedCategories), routevaldic);
+        routevaldic["pagenumber"] = pagenumber - 1;
+        page.PreviousPage = Url.Action(nameof(PaginatedCategories), routevaldic);
+
+        return View(page);
     }
+
+    public async Task<IActionResult> PaginatedCategories(int pagenumber,int take)
+    {
+        var count = await _context.Categories
+                .CountAsync();
+
+        var categories = await _context.Categories
+            .Include(c => c.Parent)
+            .Skip((pagenumber - 1) * take)
+                .Take(take)
+                .ToListAsync();
+
+        var page = new VM_PaginatedEntityTable<Category>();
+        page.Items = categories;
+        page.PageCount = (int)Math.Ceiling((decimal)count / take);
+        page.HasPrev = pagenumber > 1;
+        page.HasNext = pagenumber < page.PageCount;
+        page.CurrentPage = pagenumber;
+
+        var routevaldic = new RouteValueDictionary();
+        routevaldic["pagenumber"] = pagenumber + 1;
+        routevaldic["take"] = take;
+
+        page.NextPage = Url.Action(nameof(PaginatedCategories), routevaldic);
+        routevaldic["pagenumber"] = pagenumber - 1;
+        page.PreviousPage = Url.Action(nameof(PaginatedCategories), routevaldic);
+
+        return PartialView("_PaginatedColumnsCategories",page);
+    }
+
 
     public async Task<IActionResult> CreateCategory()
     {

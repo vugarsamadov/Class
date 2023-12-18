@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
 using PustokProject.CoreModels;
 using PustokProject.Persistance;
+using PustokProject.ViewModels;
 using PustokProject.ViewModels.Books;
 
 namespace PustokProject.Areas.Admin.Controllers
@@ -20,15 +20,70 @@ namespace PustokProject.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var model = new VM_BooksIndex();
-            model.Books = await Context.Books
-                .Include(b=>b.Category)
-                .Include(b=>b.BookAuthors)
-                .ThenInclude(a=>a.Author)
+            var pagenumber = 1;
+            var take = 3;
+
+            var count = await Context.Books
+                .CountAsync();
+
+            var items = await Context.Books
+                .Include(b => b.Category)
+                .Include(b => b.BookAuthors)
+                .ThenInclude(a => a.Author)
+                .Skip((pagenumber-1) * take)
+                .Take(take)
                 .ToListAsync();
-            
-            return View(model);
+
+            var page = new VM_PaginatedEntityTable<Book>();
+            page.Items = items;
+            page.PageCount = (int)Math.Ceiling((decimal)count / take);
+            page.HasPrev = pagenumber > 1;
+            page.HasNext = pagenumber < page.PageCount;
+            page.CurrentPage = pagenumber;
+
+            var routevaldic = new RouteValueDictionary();
+            routevaldic["pagenumber"] = pagenumber + 1;
+            routevaldic["take"] = take;
+
+            page.NextPage = Url.Action(nameof(PaginatedBooks), routevaldic);
+            routevaldic["pagenumber"] = pagenumber - 1;
+            page.PreviousPage = Url.Action(nameof(PaginatedBooks), routevaldic);
+
+            return View(page);
         }
+
+        public async Task<IActionResult> PaginatedBooks(int pagenumber,int take)
+        {
+            var count = await Context.Books
+                .CountAsync();
+
+            var items = await Context.Books
+                .Include(b => b.Category)
+                .Include(b => b.BookAuthors)
+                .ThenInclude(a => a.Author)
+                .Skip((pagenumber-1)*take)
+                .Take(take)
+                .ToListAsync();
+
+            var page = new VM_PaginatedEntityTable<Book>();
+            page.Items = items;
+            page.PageCount = (int)Math.Ceiling((decimal)count / take);
+            page.HasPrev = pagenumber > 1;
+            page.HasNext = pagenumber < page.PageCount;
+            page.CurrentPage = pagenumber;
+
+            var routevaldic = new RouteValueDictionary();
+            routevaldic["pagenumber"] = pagenumber + 1;
+            routevaldic["take"] = take;
+
+            page.NextPage = Url.Action(nameof(PaginatedBooks), routevaldic);
+            routevaldic["pagenumber"] = pagenumber - 1;
+            page.PreviousPage = Url.Action(nameof(PaginatedBooks), routevaldic);
+
+            return PartialView("_PaginatedColumnsBooks",page);
+        }
+
+
 
         public async Task<IActionResult> CreateBook()
         {
